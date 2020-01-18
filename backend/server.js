@@ -1,3 +1,4 @@
+require('dotenv').config({path: '../.env'});
 const mongoose = require('mongoose');
 const express = require('express');
 var cors = require('cors');
@@ -11,10 +12,10 @@ app.use(cors());
 const router = express.Router();
 
 // MongoDB
-const dbRoute = 'mongodb+srv://MyMongoDBUser:<password>@gettingstarted-lqqae.mongodb.net/test?retryWrites=true&w=majority';
+const dbRoute = process.env.MONGO_CONNSTR;
 
 // connects backend to DB
-mongoose.connect(dbRoute, {useNewUrlParser: true});
+mongoose.connect(dbRoute, {useNewUrlParser: true, useUnifiedTopology: true});
 
 let db = mongoose.connection;
 
@@ -61,7 +62,7 @@ router.delete('/deleteData', (req, res) => {
 router.post('/putData', (req, res) => {
 	let data = new Data();
 	const {id, message} = req.body;
-	if ((!id && id !=== 0) || !message) {
+	if ((!id && id !== 0) || !message) {
 		return res.json({
 			success: false,
 			error: 'INVALID INPUTS'
@@ -81,4 +82,4 @@ router.post('/putData', (req, res) => {
 app.use('/api', router);
 
 // connect backend to port
-app.listen(API_PORT, () => console.log('LISTENING ON PORT ${API_PORT}'));
+app.listen(API_PORT, () => console.log('LISTENING ON PORT ' + API_PORT));

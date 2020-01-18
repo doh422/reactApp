@@ -1,0 +1,23 @@
+{
+  "name": "reactApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doh422/reactApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doh422/reactApp/issues"
+  },
+  "homepage": "https://github.com/doh422/reactApp#readme",
+  "dependencies": {
+    "concurrently": "^5.0.2"
+  }
+}
