@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, BrowserRouter as Router} from 'react-router-dom';
+import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Players from './players';
 import Contact from './contact';
+import Notfound from './notfound';
 
 
 const routing = (
@@ -21,9 +22,12 @@ const routing = (
 					<Link to="/contact">Contact</Link>
 				</li>
 			</ul>
-			<Route exact path="/" component={App} />
-			<Route path="/players" component={Players} />
-			<Route path="/contact" component={Contact} />
+			<Switch>
+				<Route exact path="/" component={App} />
+				<Route path="/players" component={Players} />
+				<Route path="/contact" component={Contact} />
+				<Route component={Notfound} />
+			</Switch>
 		</div>
 	</Router>
 )
