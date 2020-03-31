@@ -19,6 +19,7 @@
   "homepage": "https://github.com/doh422/reactApp#readme",
   "dependencies": {
     "concurrently": "^5.0.2",
-    "node-sass": "^4.13.1"
+    "node-sass": "^4.13.1",
+    "react-router-dom": "^5.1.2"
   }
 }
