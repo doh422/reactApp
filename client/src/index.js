@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, NavLink, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Players from './players';
@@ -13,13 +13,13 @@ const routing = (
 		<div>
 			<ul>
 				<li>
-					<Link to="/">Home</Link>
+					<NavLink exact activeClassName="active" to="/">Home</NavLink>
 				</li>
 				<li>
-					<Link to="/players">Players</Link>
+					<NavLink activeClassName="active" to="/players">Players</NavLink>
 				</li>
 				<li>
-					<Link to="/contact">Contact</Link>
+					<NavLink activeClassName="active" to="/contact">Contact</NavLink>
 				</li>
 			</ul>
 			<Switch>
