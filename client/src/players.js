@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
+import { Route, Link } from 'react-router-dom';
+
+const Player = ({ match }) => <p>{match.params.id}</p>;
 
 class Players extends Component {
 	render() {
-		console.log(this);
-		console.log(this.props);
-		const { params } = this.props.match;
+		const { url } = this.props.match;
 		return (
 			<div>
 				<h1>Players</h1>
-				<p>{params.id}</p>
-				
+				<strong>Select Player</strong>
+				<ul>
+					<li>
+						<Link to="/players/1">Player 1</Link>
+					</li>
+					<li>
+						<Link to="/players/2">Player 2</Link>
+					</li>
+					<li>
+						<Link to="/players/3">Player 3</Link>
+					</li>
+				</ul>
+				<Route path="/players/:id" Component={Player} />
 			</div>
 		)
 	}
