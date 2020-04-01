@@ -2,7 +2,16 @@ import React, {Component} from 'react';
 
 class Players extends Component {
 	render() {
-		return <h1>Players</h1>
+		console.log(this);
+		console.log(this.props);
+		const { params } = this.props.match;
+		return (
+			<div>
+				<h1>Players</h1>
+				<p>{params.id}</p>
+				
+			</div>
+		)
 	}
 }
 
