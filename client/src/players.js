@@ -5,7 +5,8 @@ const Player = ({ match }) => <p>{match.params.id}</p>;
 
 class Players extends Component {
 	render() {
-		const { url } = this.props.match;
+		//const { url } = this.props.match;
+		console.log(this.props.match);
 		return (
 			<div>
 				<h1>Players</h1>
@@ -21,7 +22,7 @@ class Players extends Component {
 						<Link to="/players/3">Player 3</Link>
 					</li>
 				</ul>
-				<Route path="/players/:id" Component={Player} />
+				<Route path="/players/:id" component={Player} />
 			</div>
 		)
 	}

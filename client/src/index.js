@@ -10,25 +10,19 @@ import Notfound from './notfound';
 
 const routing = (
 	<Router>
-		<div>
-			<ul>
-				<li>
-					<NavLink exact activeClassName="active" to="/">Home</NavLink>
-				</li>
-				<li>
-					<NavLink activeClassName="active" to="/players">Players</NavLink>
-				</li>
-				<li>
-					<NavLink activeClassName="active" to="/contact">Contact</NavLink>
-				</li>
-			</ul>
+		<header>
+			<nav>
+				<NavLink exact activeClassName="active" to="/">Home</NavLink>
+				<NavLink activeClassName="active" to="/players">Players</NavLink>
+				<NavLink activeClassName="active" to="/contact">Contact</NavLink>
+			</nav>
 			<Switch>
 				<Route exact path="/" component={App} />
 				<Route path="/players" component={Players} />
 				<Route path="/contact" component={Contact} />
 				<Route component={Notfound} />
 			</Switch>
-		</div>
+		</header>
 	</Router>
 )
 
