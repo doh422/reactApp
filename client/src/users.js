@@ -88,6 +88,7 @@ class Users extends Component {
   // UI
   render() {
     const {data} = this.state;
+    console.log(this.state);
     return (
       <div>
         <ul>
