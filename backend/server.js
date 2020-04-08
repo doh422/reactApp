@@ -5,6 +5,7 @@ var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const Data = require('./data');
+const Player = require('./player');
 
 const API_PORT = 3001;
 const app = express();
@@ -73,8 +74,38 @@ router.post('/putData', (req, res) => {
 	data.id = id;
 	data.save((err) => {
 		if (err)
-			return res.json({ sucess: false, error: err});
+			return res.json({ success: false, error: err});
 		return res.json({ success: true});
+	});
+})
+
+router.get('/getPlayer', (req, res) => {
+	Player.find((err, data) => {
+		if (err)
+			return res.json({success: false, error: err});
+		return res.json({success: true, data: data});
+	})
+})
+
+router.post('/putPlayer', (req, res) => {
+	let player = new Player();
+	const {id, firstName, lastName, dateOfBirth, number, stats, img} = req.body;
+	if ((!id && id !== 0) || !firstName) {
+		return res.json({
+			success: false,
+			error: 'INVALID INPUTS'
+		});
+	}
+	player.firstName = firstName;
+	player.lastName = lastName;
+	player.dateOfBirth = dateOfBirth;
+	player.number = number;
+	player.stats = stats;
+	player.img = img;
+	player.save((err) => {
+		if (err)
+			return res.json({success: false, error: err});
+		return res.json({success: true});
 	});
 })
 

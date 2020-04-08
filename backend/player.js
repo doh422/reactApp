@@ -8,7 +8,8 @@ const DataSchema = new Schema(
 		lastName: String,
 		dateOfBirth: Date,
 		number: Number,
-		stats: Object
+		stats: Object,
+		img: String
 	}
 );
 
