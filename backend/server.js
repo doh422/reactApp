@@ -96,6 +96,7 @@ router.post('/putPlayer', (req, res) => {
 			error: 'INVALID INPUTS'
 		});
 	}
+	player.id = id;
 	player.firstName = firstName;
 	player.lastName = lastName;
 	player.dateOfBirth = dateOfBirth;
@@ -105,6 +106,16 @@ router.post('/putPlayer', (req, res) => {
 	player.save((err) => {
 		if (err)
 			return res.json({success: false, error: err});
+		return res.json({success: true});
+	});
+})
+
+// delete
+router.delete('/deletePlayer', (req, res) => {
+	const {id} = req.body;
+	Player.findByIdAndRemove(id, (err) => {
+		if (err)
+			return res.send(err);
 		return res.json({success: true});
 	});
 })

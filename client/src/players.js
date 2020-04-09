@@ -76,7 +76,7 @@ class Players extends Component {
       }
     });
 
-    axios.delete('http://localhost:3001/api/deleteData', {
+    axios.delete('http://localhost:3001/api/deletePlayer', {
       data: {
         id: objectToDelete
       }
@@ -121,10 +121,13 @@ class Players extends Component {
 
 			<ul>
 			{data.length <= 0 ? 'No players in DB' : data.map((dat) => (
-				<li key={dat.id}><Link to='/players/'>{dat.firstName + ' ' + dat.lastName}</Link></li>
+				<li key={dat.id}>
+					<Link to={'/players/' + dat.id}>{dat.firstName + ' ' + dat.lastName + ' - ' + dat.number}</Link>
+					<button onClick={() => this.deletePlayerFromDb(dat.id)}>Delete</button>
+				</li>
 				))}
 			</ul>
-			<form>
+			<div>
 			  <input type="text" name="firstName" 
 			  	onChange={(e) => this.setState({ firstName: e.target.value })} 
 			  	placeholder="First Name" />
@@ -141,7 +144,7 @@ class Players extends Component {
 			    onChange={(e) => this.setState({ image: e.target.value })}
 			    placeholder ="image" />
 			  <button onClick={() => this.putPlayerIntoDb(this.state)}>Add Player</button>
-			</form>
+			</div>
 			<Route path="/players/:id" component={Player} />
 		</div>
 	)
