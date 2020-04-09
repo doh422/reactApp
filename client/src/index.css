@@ -7,3 +7,13 @@ nav a {
 .active {
 	color: turquoise;
 }
+
+nav .homeLink {
+	font-family: cursive;
+	color: turquoise;
+}
+
+.playerListItem {
+	display: inline-block;
+	width: 400px;
+}
