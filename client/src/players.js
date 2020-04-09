@@ -54,7 +54,6 @@ class Players extends Component {
     while (currentIds.includes(idToBeAdded)) {
       ++idToBeAdded;
     }
-    console.log(state);
     axios.post('http://localhost:3001/api/putPlayer', {
       id: idToBeAdded,
       firstName: state.firstName,
@@ -68,10 +67,10 @@ class Players extends Component {
 
   // delete method that uses backend api to remove entry from DB
   deletePlayerFromDb = (idToDelete) => {
-    parseInt(idToDelete);
+    parseInt(idToDelete, 10); // radix val of 10
     let objectToDelete = null;
     this.state.data.forEach((dat) => {
-      if (dat.id == idToDelete) {
+      if (dat.id === idToDelete) {
         objectToDelete = dat._id;
       }
     });
@@ -86,9 +85,9 @@ class Players extends Component {
   // put method that uses backend api to edit existing DB entry
   updatePlayerinDb = (idToUpdate, updateToAppy) => {
     let objectToUpdate = null;
-    parseInt(idToUpdate);
+    parseInt(idToUpdate, 10);
     this.state.data.forEach((dat) => {
-      if (dat.id == idToUpdate) {
+      if (dat.id === idToUpdate) {
         objectToUpdate = dat._id;
       }
     });
@@ -100,9 +99,8 @@ class Players extends Component {
   };
 
   render() {
-	//console.log(this.props.match);
+	console.log(this.props);
 	const {data} = this.state;
-	console.log(this.state);
 	return (
 		<div>
 			<h1>Players</h1>
@@ -142,7 +140,7 @@ class Players extends Component {
 			    placeholder="Uniform Number" />
 			  <input type="text" name="image" 
 			    onChange={(e) => this.setState({ image: e.target.value })}
-			    placeholder ="image" />
+			    placeholder="image" />
 			  <button onClick={() => this.putPlayerIntoDb(this.state)}>Add Player</button>
 			</div>
 			<Route path="/players/:id" component={Player} />

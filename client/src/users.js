@@ -54,7 +54,7 @@ class Users extends Component {
 
   // delete method that uses backend api to remove entry from DB
   deleteFromDB = (idToDelete) => {
-    parseInt(idToDelete);
+    parseInt(idToDelete, 10);
     let objectToDelete = null;
     this.state.data.forEach((dat) => {
       if (dat.id == idToDelete) {
@@ -70,9 +70,9 @@ class Users extends Component {
   };
 
   // put method that uses backend api to edit existing DB entry
-  updateDB = (idToUpdate, updateToAppy) => {
+  updateDB = (idToUpdate, updateToApply) => {
     let objectToUpdate = null;
-    parseInt(idToUpdate);
+    parseInt(idToUpdate, 10);
     this.state.data.forEach((dat) => {
       if (dat.id == idToUpdate) {
         objectToUpdate = dat._id;
@@ -81,7 +81,7 @@ class Users extends Component {
 
     axios.post('http://localhost:3001/api/updateData', {
       id: objectToUpdate,
-      update: { message: updateToAppy }
+      update: { message: updateToApply }
     });
   };
 
@@ -123,9 +123,9 @@ class Users extends Component {
             placeholder="id of item to update here" />
           <input type="text"
             style={{width: '200px'}}
-            onChange={(e) => this.setState({ updateToAppy: e.target.value })}
+            onChange={(e) => this.setState({ updateToApply: e.target.value })}
             placeholder="put new value of item here" />
-          <button onClick={() => this.updateDB(this.state.idToUpdate, this.state.updateToAppy)}>UPDATE</button>
+          <button onClick={() => this.updateDB(this.state.idToUpdate, this.state.updateToApply)}>UPDATE</button>
         </div>
       </div>
     );
