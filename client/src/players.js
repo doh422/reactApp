@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import { Col, Container } from 'react-bootstrap';
 
 const Player = ({ match }) => <p>{match.params.id}</p>;
 
@@ -99,11 +101,16 @@ class Players extends Component {
     });
   };
 
+  submitPlayerForm = (event) => {
+  	event.preventDefault();
+  	this.putPlayerIntoDb(this.state);
+  }
+
   render() {
-	console.log(this.props);
+	console.log(this.state);
 	const {data} = this.state;
 	return (
-		<div>
+		<Container>
 			<h1>Players</h1>
 			<strong>Select Player</strong>
 			<ul>
@@ -122,8 +129,8 @@ class Players extends Component {
 			{data.length <= 0 ? 'No players in DB' : data.map((dat) => (
 				<li className="playerListItem" key={dat.id}>
 					<Card>
-						<svg class="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						  <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+						<svg className="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fillRule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/>
 						</svg>
 						<Card.Body>
 							<Card.Title>{dat.firstName + ' ' + dat.lastName}</Card.Title>
@@ -134,26 +141,40 @@ class Players extends Component {
 				</li>
 				))}
 			</ul>
-			<div>
-			  <input type="text" name="firstName" 
-			  	onChange={(e) => this.setState({ firstName: e.target.value })} 
-			  	placeholder="First Name" />
-			  <input type="text" name="lastName"
-			    onChange={(e) => this.setState({ lastName: e.target.value })}
-			    placeholder="Last Name" />
-			  <input type="text" name="dateOfBirth"
-			    onChange={(e) => this.setState({ dateOfBirth: e.target.value })}
-			    placeholder="DOB" />
-			  <input type="text" name="number"
-			    onChange={(e) => this.setState({ number: e.target.value })}
-			    placeholder="Uniform Number" />
-			  <input type="text" name="image" 
-			    onChange={(e) => this.setState({ image: e.target.value })}
-			    placeholder="image" />
-			  <button onClick={() => this.putPlayerIntoDb(this.state)}>Add Player</button>
-			</div>
+			<Form>
+				<Form.Row>
+					<Form.Group as={Col} controlId="formFName">
+						<Form.Label>First Name</Form.Label>
+						<Form.Control type="text" placeholder="First Name" 
+						  onChange={(e) => this.setState({ firstName: e.target.value })} />
+					</Form.Group>
+					<Form.Group as={Col} controlId="formLName">
+						<Form.Label>Last Name</Form.Label>
+						<Form.Control type="text" placeholder="Last Name" 
+						  onChange={(e) => this.setState({ lastName: e.target.value })} />
+					</Form.Group>
+				</Form.Row>
+				<Form.Row>
+					<Form.Group as={Col} controlId="formDOB">
+						<Form.Label>Date of Birth</Form.Label>
+						<Form.Control type="date" 
+						  onChange={(e) => this.setState({dateOfBirth: e.target.value})} />
+					</Form.Group>
+					<Form.Group as={Col} controlId="formNumber">
+						<Form.Label>Uniform #</Form.Label>
+						<Form.Control type="number" min="0" max="99"
+						  onChange={(e) => this.setState({number: e.target.value})} />
+					</Form.Group>
+					<Form.Group as={Col} controlId="formImage">
+						<Form.Label>Picture File</Form.Label>
+						<Form.File label="Player picture file" custom
+						  onChange={(e) => this.setState({image: e.target.value})} />
+					</Form.Group>
+				</Form.Row>
+				<button onClick={(e) => this.submitPlayerForm(e)}>Add Player</button>
+			</Form>
 			<Route path="/players/:id" component={Player} />
-		</div>
+		</Container>
 	)
   }
 }
