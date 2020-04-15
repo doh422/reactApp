@@ -20,11 +20,12 @@ class PlayerItem extends Component {
 					}
 					<Card.Body>
 						<Card.Title>{firstName + ' ' + lastName}</Card.Title>
-						<Link to={'/player/' + id}>{firstName + ' ' + lastName + ' - ' + number}</Link>
+						<Link to={{
+							pathname: '/player/' + firstName + '-' + lastName,
+							state: this.props.player}}>{firstName + ' ' + lastName + ' - ' + number}</Link>
 						<button onClick={() => this.deletePlayerFromDb(id)}>Delete</button>
 					</Card.Body>
 				</Card>
-				<Route path="/player/:id" render={(props) => <Player {...props} isAuthed={true} />} />
 			</li>
 		)
 	}	

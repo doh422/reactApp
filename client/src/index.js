@@ -32,7 +32,7 @@ const routing = (
 				<Route path="/roster" component={Roster} />
 				<Route path="/contact" component={Contact} />
 				<Route path="/users" component={Users} />
-				<Route path="/player/:id" component={Player} />
+				<Route path="/player/:name" component={Player} />
 				<Route component={Notfound} />
 			</Switch>
 		</header>
