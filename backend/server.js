@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const Data = require('./data');
 const Player = require('./player');
+const Game = require('./game');
 
 const API_PORT = 3001;
 const app = express();
@@ -118,6 +119,41 @@ router.delete('/deletePlayer', (req, res) => {
 			return res.send(err);
 		return res.json({success: true});
 	});
+})
+
+router.get('/getGames', (req, res) => {
+	Game.find((err, data) => {
+		if (err)
+			return res.json({success: false, error: err });
+		return res.json({success: true, data: data});
+	})
+})
+
+router.post('/putGame', (req, res) => {
+	let game = new Game();
+	const { id, date, location, homeTeam, roadTeam, status, stats } = req.body;
+	if ((!id && id != 0) || !date) {
+		return res.json({
+			success: false,
+			error: 'Missing required fields'
+		})
+	}
+	game.id = id;
+	game.date = date;
+	game.location = location;
+	game.homeTeam = homeTeam;
+	game.roadTeam = roadTeam;
+	game.status = status;
+	game.stats = stats;
+})
+
+router.post('/updateGame', (req, res) => {
+	const {id, update} = req.body;
+	Game.findByIdAndUpdate(id, update, (err) => {
+		if (err)
+			return res.json({success: false, error: err});
+		return res.json({success: true});
+	})
 })
 
 // append /api for http requests
