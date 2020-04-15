@@ -17,3 +17,12 @@ nav .homeLink {
 	display: inline-block;
 	width: 400px;
 }
+
+.playerListItem .defaultPlayerImgDiv {
+	text-align: center;
+}
+
+.playerListItem .defaultPlayerImgDiv svg {
+	height: 85px;
+	width: 85px;
+}

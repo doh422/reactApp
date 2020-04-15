@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
-import Card from 'react-bootstrap/Card';
+
 import Form from 'react-bootstrap/Form';
 import { Col, Container } from 'react-bootstrap';
+import Player from './player';
+import PlayerItem from './playerItem';
 
-const Player = ({ match }) => <p>{match.params.id}</p>;
+//const Player = ({ match }) => <p>{match.params.id}</p>;
 
 class Players extends Component {
 
@@ -107,7 +109,6 @@ class Players extends Component {
   }
 
   render() {
-	console.log(this.state);
 	const {data} = this.state;
 	return (
 		<Container>
@@ -127,19 +128,7 @@ class Players extends Component {
 
 			<ul>
 			{data.length <= 0 ? 'No players in DB' : data.map((dat) => (
-				<li className="playerListItem" key={dat.id}>
-					<Card>
-						<svg className="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						  <path fillRule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/>
-						</svg>
-						<Card.Body>
-							<Card.Title>{dat.firstName + ' ' + dat.lastName}</Card.Title>
-							<Link to={'/players/' + dat.id}>{dat.firstName + ' ' + dat.lastName + ' - ' + dat.number}</Link>
-							<button onClick={() => this.deletePlayerFromDb(dat.id)}>Delete</button>
-						</Card.Body>
-					</Card>
-				</li>
-				))}
+				<PlayerItem key={dat.id} player={dat} /> ))}
 			</ul>
 			<Form>
 				<Form.Row>
