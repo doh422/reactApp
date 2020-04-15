@@ -145,6 +145,11 @@ router.post('/putGame', (req, res) => {
 	game.roadTeam = roadTeam;
 	game.status = status;
 	game.stats = stats;
+	game.save((err) => {
+		if (err)
+			return res.json({ success: false, error: err })
+		return res.json({ success: true })
+	})
 })
 
 router.post('/updateGame', (req, res) => {
