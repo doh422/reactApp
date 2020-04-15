@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
-
 import Form from 'react-bootstrap/Form';
 import { Col, Container } from 'react-bootstrap';
 import Player from './player';
@@ -9,7 +8,7 @@ import PlayerItem from './playerItem';
 
 //const Player = ({ match }) => <p>{match.params.id}</p>;
 
-class Players extends Component {
+class Roster extends Component {
 
 	// initialize state
   state = {
@@ -162,10 +161,9 @@ class Players extends Component {
 				</Form.Row>
 				<button onClick={(e) => this.submitPlayerForm(e)}>Add Player</button>
 			</Form>
-			<Route path="/players/:id" component={Player} />
 		</Container>
 	)
   }
 }
 
-export default Players;
+export default Roster;

@@ -4,13 +4,13 @@ import { Route, NavLink, BrowserRouter as Router, Switch } from 'react-router-do
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
-import Players from './players';
+import Roster from './roster';
 import Contact from './contact';
 import Users from './users';
+import Player from './player';
 import Notfound from './notfound';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap';
 
 
 const routing = (
@@ -21,7 +21,7 @@ const routing = (
 				<Navbar.Toggle aria-controls="navbarNav" />
 				<Navbar.Collapse id="navbarNav"className="justify-content-end">
 					<Nav className="navbar-nav">
-						<NavLink activeClassName="active" className="nav-item nav-link" to="/players">Players</NavLink>
+						<NavLink activeClassName="active" className="nav-item nav-link" to="/roster">Roster</NavLink>
 						<NavLink activeClassName="active" className="nav-item nav-link" to="/contact">Contact</NavLink>
 						<NavLink activeClassName="active" className="nav-item nav-link" to="/users">Users</NavLink>
 					</Nav>
@@ -29,9 +29,10 @@ const routing = (
 			</Navbar>
 			<Switch>
 				<Route exact path="/" component={App} />
-				<Route path="/players" component={Players} />
+				<Route path="/roster" component={Roster} />
 				<Route path="/contact" component={Contact} />
 				<Route path="/users" component={Users} />
+				<Route path="/player/:id" component={Player} />
 				<Route component={Notfound} />
 			</Switch>
 		</header>
