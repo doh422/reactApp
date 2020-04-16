@@ -4,11 +4,12 @@ import { Route, NavLink, BrowserRouter as Router, Switch } from 'react-router-do
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
-import Roster from './roster';
+import Roster from './components/roster';
 import Contact from './contact';
 import Users from './users';
-import Player from './player';
-import Schedule from './schedule';
+import Player from './components/player';
+import Schedule from './components/schedule';
+import Boxscore from './components/boxscore';
 import Notfound from './notfound';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -36,6 +37,7 @@ const routing = (
 				<Route path="/contact" component={Contact} />
 				<Route path="/users" component={Users} />
 				<Route path="/player/:name" component={Player} />
+				<Route path="/game/:id" component={Boxscore} />
 				<Route component={Notfound} />
 			</Switch>
 		</header>

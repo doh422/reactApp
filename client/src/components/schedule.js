@@ -75,6 +75,7 @@ class Schedule extends Component {
 						<th>Home</th>
 						<th>Status</th>
 						<th>Location</th>
+						<th></th>
 					</tr>
 					{games.map((game) => (
 					<Game game={game} key={game.id} /> ))}

@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import Link from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Game extends Component {
 	render() {
-		console.log(this.props);
-		const { location, date, time, homeTeam, awayTeam, status, id } = this.props.game
+		const { location, date, time, homeTeam, awayTeam, status, id } = this.props.game;
 		return (
 			<tr>
 				<td>{date}</td>
@@ -13,7 +12,9 @@ class Game extends Component {
 				<td>{homeTeam}</td>
 				<td>{status}</td>
 				<td>{location}</td>
-				<td><Link to="/game/:id" Component={BoxScore} /></td>
+				<td><Link to={{
+					pathname: '/game/' + id,
+					state: this.props.game}}>Stats</Link></td>
 			</tr>
 		)
 	}

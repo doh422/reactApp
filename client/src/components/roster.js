@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import { Route, Link } from 'react-router-dom';
+import Link from 'react-router-dom';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import { Col, Container } from 'react-bootstrap';
-import Player from './player';
 import PlayerItem from './playerItem';
 
 //const Player = ({ match }) => <p>{match.params.id}</p>;
@@ -113,18 +112,7 @@ class Roster extends Component {
 		<Container>
 			<h1>Players</h1>
 			<strong>Select Player</strong>
-			<ul>
-				<li>
-					<Link to="/players/1">Fake Player 1</Link>
-				</li>
-				<li>
-					<Link to="/players/2">Fake Player 2</Link>
-				</li>
-				<li>
-					<Link to="/players/3">Fake Player 3</Link>
-				</li>
-			</ul>
-
+			
 			<ul>
 			{data.length <= 0 ? 'No players in DB' : data.map((dat) => (
 				<PlayerItem key={dat.id} player={dat} /> ))}
