@@ -10,6 +10,7 @@ import Users from './users';
 import Player from './components/player';
 import Schedule from './components/schedule';
 import Boxscore from './components/boxscore';
+import Scorebook from './components/scorebook';
 import Notfound from './notfound';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -37,7 +38,8 @@ const routing = (
 				<Route path="/contact" component={Contact} />
 				<Route path="/users" component={Users} />
 				<Route path="/player/:name" component={Player} />
-				<Route path="/game/:id" component={Boxscore} />
+				<Route exact path="/game/:id" component={Boxscore} />
+				<Route path="/game/:id/scorebook" component={Scorebook} />
 				<Route component={Notfound} />
 			</Switch>
 		</header>

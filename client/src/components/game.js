@@ -12,9 +12,12 @@ class Game extends Component {
 				<td>{homeTeam}</td>
 				<td>{status}</td>
 				<td>{location}</td>
-				<td><Link to={{
+				<td><Link exact to={{
 					pathname: '/game/' + id,
-					state: this.props.game}}>Stats</Link></td>
+					state: this.props.game}}>Stats</Link>
+					<Link to={{
+					pathname: '/game/' + id + '/scorebook',
+					state: this.props.game}}>Scorebook</Link></td>
 			</tr>
 		)
 	}
