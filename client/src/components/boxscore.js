@@ -17,15 +17,9 @@ class Boxscore extends Component {
                             <th>RBI</th>
                             <th>BB</th>
                             <th>K</th>
-                            <th>AVG</th>
-                            <th>OBP</th>
-                            <th>SLG</th>
                         </tr>
                         <tr>
                             <td><input type="text" placeholder="Player" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
                             <td><input type="number" /></td>
                             <td><input type="number" /></td>
                             <td><input type="number" /></td>

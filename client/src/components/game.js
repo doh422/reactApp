@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 class Game extends Component {
 	render() {
-		const { location, date, time, homeTeam, awayTeam, status, id } = this.props.game;
+		const { location, date, time, homeTeam, roadTeam, status, id } = this.props.game;
 		return (
 			<tr>
 				<td>{date}</td>
 				<td>{time}</td>
-				<td>{awayTeam}</td>
+				<td>{roadTeam}</td>
 				<td>{homeTeam}</td>
 				<td>{status}</td>
 				<td>{location}</td>

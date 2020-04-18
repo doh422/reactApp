@@ -66,7 +66,7 @@ class Schedule extends Component {
 			<div>
 				<h3>Schedule component</h3>
 				{games.length <= 0 ? 'No Games Scheduled' : 
-				<table>
+				<table style={tbStyle}>
 					<tbody>
 					<tr>
 						<th>Date</th>
@@ -100,6 +100,10 @@ class Schedule extends Component {
 			</div>
 		)
 	}
+}
+
+const tbStyle = {
+	width: '100%'
 }
 
 export default Schedule;

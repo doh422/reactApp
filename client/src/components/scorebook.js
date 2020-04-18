@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import AtBat from './atBat';
 
 class Scorebook extends Component {
     render() {
         console.log(this.props);
         return (
-            <table>
+            <table style={sbTable}>
                 <tbody>
                     <tr>
                         <th>Player</th>
@@ -24,20 +25,32 @@ class Scorebook extends Component {
                         <td>hello</td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><div style={sbDiamond}><AtBat /></div></td>
+                        <td><div style={sbDiamond}></div></td>
+                        <td><div style={sbDiamond}></div></td>
+                        <td><div style={sbDiamond}></div></td>
+                        <td><div style={sbDiamond}></div></td>
+                        <td><div style={sbDiamond}></div></td>
+                        <td><div style={sbDiamond}></div></td>
+                        <td><div style={sbDiamond}></div></td>
+                        <td><div style={sbDiamond}></div></td>
                     </tr>
                 </tbody>
             </table>
         )
     }
+}
+
+const sbTable = {
+    width: '100%',
+    borderCollapse: 'collapse'
+}
+
+const sbDiamond = {
+    height: '50px',
+	width: '50px',
+	border: '2px solid',
+	transform: 'rotate(45deg)'
 }
 
 export default Scorebook;
