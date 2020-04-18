@@ -163,7 +163,7 @@ router.post('/updateGame', (req, res) => {
 	})
 })
 
-router.get('/getTeams', (req, rest) => {
+router.get('/getTeams', (req, res) => {
 	Team.find((err, data) => {
 		if (err)
 			return res.json({success: false, error: err})

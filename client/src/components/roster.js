@@ -11,6 +11,12 @@ class Roster extends Component {
 
 	// initialize state
   state = {
+	teamData: [],
+	teamId: 0,
+	description: null,
+	teamName: null,
+	roster: [],
+
 	data: [],
 	id: 0,
 	firstName: null,
@@ -29,6 +35,7 @@ class Roster extends Component {
   	// implement polling logic to see if db has changed
   componentDidMount() {
 	this.getPlayerFromDb();
+	this.getTeamsFromDb();
 	if (!this.state.intervalIsSet) {
       let interval = setInterval(this.getPlayerFromDb, 1000);
 	  this.setState({ intervalIsSet: interval });
@@ -106,10 +113,55 @@ class Roster extends Component {
   	this.putPlayerIntoDb(this.state);
   }
 
+  getTeamsFromDb = () => {
+	  fetch("http://localhost:3001/api/getTeams")
+		.then((data) => data.json())
+		.then((res) => this.setState({ teamData: res.data}))
+  }
+
+  putTeamIntoDb = () => {
+	  let currentIds = this.state.teamData.map((team) => team.teamId)
+	  let idToBeAdded = 0
+	  while (currentIds.includes(idToBeAdded))
+	  	++idToBeAdded
+	  axios.post("http://localhost:3001/api/putTeam", {
+		  id: idToBeAdded,
+		  name: this.state.teamName,
+		  description: this.state.description,
+		  roster: this.state.roster
+	  })
+  }
+
+  addTeam = (event) => {
+	  event.preventDefault();
+	  this.putTeamIntoDb();
+  }
+
   render() {
-	const {data} = this.state;
+	const {data, teamData} = this.state;
+	console.log(this.state)
 	return (
 		<Container>
+			<h1>Teams</h1>
+			<ul>
+				{teamData.length <= 0 ? 'No teams in DB' : teamData.map((team) => (
+					<li key={team.id}>{team.name}</li>
+				))}
+			</ul>
+			<form>
+				<input type="text" placeholder="team name"
+				  onChange={(e) => this.setState({ teamName: e.target.value })} />
+				<input type="text" placeholder="team description"
+				  onChange={(e) => this.setState({ description: e.target.value })} />
+				{data.length > 0 &&
+				<select>
+					{data.map((dat) => (
+					<option key={dat.id} val={dat.id}>{dat.firstName + ' ' + dat.lastName}</option> ))}
+				</select>
+				}
+				<button onClick={(e) => this.addTeam(e)}>Add Team</button>
+			</form>
+
 			<h1>Players</h1>
 			<strong>Select Player</strong>
 			
