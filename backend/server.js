@@ -4,9 +4,11 @@ const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+
 const Data = require('./data');
 const Player = require('./player');
 const Game = require('./game');
+const Team = require('./team');
 
 const API_PORT = 3001;
 const app = express();
@@ -158,6 +160,43 @@ router.post('/updateGame', (req, res) => {
 		if (err)
 			return res.json({success: false, error: err});
 		return res.json({success: true});
+	})
+})
+
+router.get('/getTeams', (req, rest) => {
+	Team.find((err, data) => {
+		if (err)
+			return res.json({success: false, error: err})
+		return res.json({success: true, data: data})
+	})
+})
+
+router.post('/putTeam', (req, res) => {
+	let team = new Team();
+	const {id, name, description, roster} = req.body;
+	if ((!id && id != 0) || !name) {
+		return res.json({
+			success: false,
+			error: 'no team name'
+		})
+	}
+	team.id = id;
+	team.name = name;
+	team.description = description;
+	team.roster = roster;
+	team.save((err) => {
+		if (err)
+			return res.json({success: false, error: err})
+		return res.json({success: true })
+	})
+})
+
+router.post('/updateTeam', (req, res) => {
+	const {id, update} = req.body;
+	Team.findByIdAndUpdate(id, update, (err) => {
+		if (err)
+			return res.json({success:false, error: err})
+		return res.json({success: true})
 	})
 })
 
