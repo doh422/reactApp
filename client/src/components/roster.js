@@ -132,9 +132,30 @@ class Roster extends Component {
 	  })
   }
 
+  updateTeamInDb = (idToUpdate, updateToApply) => {
+	let teamToUpdate = null
+	parseInt(idToUpdate, 10)
+	this.state.teamData.forEach((team) => {
+	  if (team.id == idToUpdate) {
+		teamToUpdate = team._id
+	  }
+	})
+	console.log(updateToApply)
+	axios.post("http://localhost:3001/api/updateTeam", {
+	  id: teamToUpdate,
+	  update: {roster: this.state.roster}
+	})
+  }
+
   addTeam = (event) => {
 	  event.preventDefault();
 	  this.putTeamIntoDb();
+  }
+
+  updateTeam = (event) => {
+	  event.preventDefault()
+	  this.state.roster.push(this.state.id)
+	  this.updateTeamInDb(this.state.teamId, this.state.roster)
   }
 
   render() {
@@ -153,13 +174,27 @@ class Roster extends Component {
 				  onChange={(e) => this.setState({ teamName: e.target.value })} />
 				<input type="text" placeholder="team description"
 				  onChange={(e) => this.setState({ description: e.target.value })} />
-				{data.length > 0 &&
-				<select>
-					{data.map((dat) => (
-					<option key={dat.id} val={dat.id}>{dat.firstName + ' ' + dat.lastName}</option> ))}
-				</select>
-				}
+				
 				<button onClick={(e) => this.addTeam(e)}>Add Team</button>
+			</form>
+
+			<form>
+			  {teamData.length > 0 &&
+			  <select onChange={(e) => this.setState({ teamId: e.target.value })}>
+				  <option>Select Team</option>
+				  {teamData.map((team) => (
+				  <option key={team.id} value={team.id}>{team.name}</option>
+				  ))}
+			  </select>
+			  }
+			  {data.length > 0 &&
+			  <select onChange={(e) => this.setState({id: e.target.value})}>
+				<option>Select Player</option>
+				{data.map((dat) => (
+			    <option key={dat.id} value={dat._id}>{dat.firstName + ' ' + dat.lastName}</option> ))}
+			  </select>
+			  }
+			  <button onClick={(e) => this.updateTeam(e)}>Add player to team</button>
 			</form>
 
 			<h1>Players</h1>

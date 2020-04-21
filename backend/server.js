@@ -193,6 +193,7 @@ router.post('/putTeam', (req, res) => {
 
 router.post('/updateTeam', (req, res) => {
 	const {id, update} = req.body;
+	console.log(req.body);
 	Team.findByIdAndUpdate(id, update, (err) => {
 		if (err)
 			return res.json({success:false, error: err})
