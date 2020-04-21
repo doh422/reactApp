@@ -120,10 +120,10 @@ class Roster extends Component {
   }
 
   putTeamIntoDb = () => {
-	  let currentIds = this.state.teamData.map((team) => team.teamId)
+	  let currentIds = this.state.teamData.map((team) => team.id)
 	  let idToBeAdded = 0
 	  while (currentIds.includes(idToBeAdded))
-	  	++idToBeAdded
+		  ++idToBeAdded
 	  axios.post("http://localhost:3001/api/putTeam", {
 		  id: idToBeAdded,
 		  name: this.state.teamName,
@@ -137,7 +137,13 @@ class Roster extends Component {
 	parseInt(idToUpdate, 10)
 	this.state.teamData.forEach((team) => {
 	  if (team.id == idToUpdate) {
-		teamToUpdate = team._id
+		if (!team.roster.includes(updateToApply)) {
+		  teamToUpdate = team._id
+		  this.state.roster = team.roster;
+		  this.state.roster.push(updateToApply)
+		}
+		else
+		  alert('player already on roster')
 	  }
 	})
 	console.log(updateToApply)
@@ -154,8 +160,7 @@ class Roster extends Component {
 
   updateTeam = (event) => {
 	  event.preventDefault()
-	  this.state.roster.push(this.state.id)
-	  this.updateTeamInDb(this.state.teamId, this.state.roster)
+	  this.updateTeamInDb(this.state.teamId, this.state.id)
   }
 
   render() {
