@@ -9,16 +9,18 @@ class Schedule extends Component {
 		location: null,
 		date: null,
 		time: null,
-		home: null,
+		homeTeam: null,
 		roadTeam: null,
 		status: null,
 		intervalIsSet: false,
 		idToUpdate: null,
-		objectToUpdate: null
+		objectToUpdate: null,
+		teamData:[]
 	}
 
 	componentDidMount() {
 		this.getGamesFromDb();
+		this.getTeamsFromDb();
 		if (!this.state.intervalIsSet) {
 			let interval = setInterval(this.getGamesFromDb, 1000);
 			this.setState({ intervalIsSet: interval});
@@ -60,8 +62,26 @@ class Schedule extends Component {
 		this.addGameToDb();
 	}
 
+	getTeamsFromDb = () => {
+		fetch("http://localhost:3001/api/getTeams")
+		  .then((data) => data.json())
+		  .then((res) => this.setState({ teamData: res.data}))
+	}
+
+	setValueOrReplaceInput = (event, attr) => {
+		if (event.target.value == "custom") {
+		  event.target.style.display = "none"
+		  event.target.nextSibling.style.display = "inline-block"
+		} else {
+		  console.log(attr)
+		  this.setState({ [attr]: event.target.value })
+		  console.log('2')
+		}
+	}
+
 	render() {
-		const { games } = this.state;
+		const { games, teamData } = this.state;
+		console.log(this.state)
 		return (
 			<div>
 				<h3>Schedule component</h3>
@@ -89,10 +109,29 @@ class Schedule extends Component {
 					  onChange={(e) => this.setState({ date: e.target.value})} />
 					<input type="time" 
 					  onChange={(e) => this.setState({ time: e.target.value })} />
-					<input type="text" placeholder="home team"
-					  onChange={(e) => this.setState({ homeTeam: e.target.value })} />
-					<input type="text" placeholder="roadteam"
+					{teamData.length > 0 &&
+					<select onChange={(e) => this.setValueOrReplaceInput(e, 'roadTeam')}>
+						<option>Road Team</option>
+						{teamData.map((team) => (
+						<option key={team.id} value={team.id}>{team.name}</option>
+						))}
+						<option value="custom">Enter team manually</option>
+					</select>
+					}
+					<input type="text" placeholder="roadteam" style={noDisplay}
 					  onChange={(e) => this.setState({ roadTeam: e.target.value })} />
+					@
+					{teamData.length > 0 &&
+					<select onChange={(e) => this.setValueOrReplaceInput(e, 'homeTeam')}>
+						<option>Home Team</option>
+						{teamData.map((team) => (
+						<option key={team.id} value={team.id}>{team.name}</option>
+						))}
+						<option value="custom">Enter team manually</option>
+					</select>
+					}
+					<input type="text" placeholder="home team" style={noDisplay}
+					  onChange={(e) => this.setState({ homeTeam: e.target.value })} />
 					<input type="text" placeholder="status"
 					  onChange={(e) => this.setState({ status: e.target.value })} />
 					<button onClick={(e) => this.submitGameForm(e)}>Add Game</button>
@@ -104,6 +143,10 @@ class Schedule extends Component {
 
 const tbStyle = {
 	width: '100%'
+}
+
+const noDisplay = {
+	display: 'none'
 }
 
 export default Schedule;
