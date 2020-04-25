@@ -133,7 +133,7 @@ router.get('/getGames', (req, res) => {
 
 router.post('/putGame', (req, res) => {
 	let game = new Game();
-	const { id, date, location, homeTeam, roadTeam, status, stats } = req.body;
+	const { id, date, location, homeTeamId, homeTeamName, roadTeamId, roadTeamName, status, stats } = req.body;
 	if ((!id && id != 0) || !date) {
 		return res.json({
 			success: false,
@@ -143,8 +143,10 @@ router.post('/putGame', (req, res) => {
 	game.id = id;
 	game.date = date;
 	game.location = location;
-	game.homeTeam = homeTeam;
-	game.roadTeam = roadTeam;
+	game.homeTeamId = homeTeamId;
+	game.homeTeamName = homeTeamName;
+	game.roadTeamId = roadTeamId;
+	game.roadTeamName = roadTeamName;
 	game.status = status;
 	game.stats = stats;
 	game.save((err) => {
