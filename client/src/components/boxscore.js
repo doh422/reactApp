@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 class Boxscore extends Component {
     render() {
-        const { roadTeam, homeTeam, location, date, status } = this.props.location.state;
+        const { roadTeamName, homeTeamName, location, date, status } = this.props.location.state;
         return (
             <div>
-                <h3>{roadTeam + " @ " + homeTeam}</h3>
+                <h3>{roadTeamName + " @ " + homeTeamName}</h3>
                 <p>{location + " - " + date}</p>
                 <table>
                     <tbody>

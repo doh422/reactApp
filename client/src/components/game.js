@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 class Game extends Component {
 	render() {
-		const { location, date, time, homeTeam, roadTeam, status, id } = this.props.game;
+		const { location, date, time, homeTeamName, roadTeamName, status, id } = this.props.game;
 		return (
 			<tr>
 				<td>{date}</td>
 				<td>{time}</td>
-				<td>{roadTeam}</td>
-				<td>{homeTeam}</td>
+				<td>{roadTeamName}</td>
+				<td>{homeTeamName}</td>
 				<td>{status}</td>
 				<td>{location}</td>
 				<td><Link exact to={{
