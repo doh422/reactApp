@@ -173,6 +173,16 @@ router.get('/getTeams', (req, res) => {
 	})
 })
 
+
+router.get('/getTeam/:id', (req, res) => {
+	console.log(req.params)
+	Team.findById(req.params.id, (err, data) => {
+		if (err)
+		  return res.json({success: false, eror: err})
+		res.json({ success: true, data: data})
+	})
+})
+
 router.post('/putTeam', (req, res) => {
 	let team = new Team();
 	const {id, name, description, roster} = req.body;
