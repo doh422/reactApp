@@ -9,8 +9,10 @@ class Schedule extends Component {
 		location: null,
 		date: null,
 		time: null,
-		homeTeam: null,
-		roadTeam: null,
+		homeTeamId: null,
+		homeTeamName: null,
+		roadTeamId: null,
+		roadTeamName: null,
 		status: null,
 		intervalIsSet: false,
 		idToUpdate: null,
@@ -50,8 +52,10 @@ class Schedule extends Component {
 			location: this.state.location,
 			date: this.state.date,
 			time: this.state.time,
-			homeTeam: this.state.homeTeam,
-			roadTeam: this.state.roadTeam,
+			homeTeamId: this.state.homeTeamId,
+			homeTeamName: this.state.homeTeamName,
+			roadTeamId: this.state.roadTeamId,
+			roadTeamName: this.state.roadTeamName,
 			status: this.state.status,
 			stats: null
 		})
@@ -69,13 +73,16 @@ class Schedule extends Component {
 	}
 
 	setValueOrReplaceInput = (event, attr) => {
-		if (event.target.value == "custom") {
+		console.log(event.target.options[event.target.selectedIndex].text)
+		if (event.target.value == "null") {
 		  event.target.style.display = "none"
 		  event.target.nextSibling.style.display = "inline-block"
-		} else {
+		} else { // assign values to state
 		  console.log(attr)
-		  this.setState({ [attr]: event.target.value })
-		  console.log('2')
+		  let attrId = attr + "Id"
+		  this.setState({ [attrId]: event.target.value })
+		  let attrName = attr + "Name"
+		  this.setState({ [attrName]: event.target.options[event.target.selectedIndex].text})
 		}
 	}
 
@@ -113,25 +120,25 @@ class Schedule extends Component {
 					<select onChange={(e) => this.setValueOrReplaceInput(e, 'roadTeam')}>
 						<option>Road Team</option>
 						{teamData.map((team) => (
-						<option key={team.id} value={team.id}>{team.name}</option>
+						<option key={team.id} value={team._id}>{team.name}</option>
 						))}
-						<option value="custom">Enter team manually</option>
+						<option value="null">Enter team manually</option>
 					</select>
 					}
 					<input type="text" placeholder="roadteam" style={noDisplay}
-					  onChange={(e) => this.setState({ roadTeam: e.target.value })} />
+					  onChange={(e) => this.setState({ roadTeamName: e.target.value })} />
 					@
 					{teamData.length > 0 &&
 					<select onChange={(e) => this.setValueOrReplaceInput(e, 'homeTeam')}>
 						<option>Home Team</option>
 						{teamData.map((team) => (
-						<option key={team.id} value={team.id}>{team.name}</option>
+						<option key={team.id} value={team._id}>{team.name}</option>
 						))}
-						<option value="custom">Enter team manually</option>
+						<option value="null">Enter team manually</option>
 					</select>
 					}
 					<input type="text" placeholder="home team" style={noDisplay}
-					  onChange={(e) => this.setState({ homeTeam: e.target.value })} />
+					  onChange={(e) => this.setState({ homeTeamName: e.target.value })} />
 					<input type="text" placeholder="status"
 					  onChange={(e) => this.setState({ status: e.target.value })} />
 					<button onClick={(e) => this.submitGameForm(e)}>Add Game</button>
