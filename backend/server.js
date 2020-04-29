@@ -90,6 +90,14 @@ router.get('/getPlayer', (req, res) => {
 	})
 })
 
+router.get('/getPlayer/:id', (req, res) => {
+	Player.findById(req.params.id, (err, data) => {
+		if (err)
+			return res.json({ success: false, error: err })
+		return res.json({ success: true, data: data })
+	})
+})
+
 router.post('/putPlayer', (req, res) => {
 	let player = new Player();
 	const {id, firstName, lastName, dateOfBirth, number, stats, img} = req.body;
@@ -175,7 +183,6 @@ router.get('/getTeams', (req, res) => {
 
 
 router.get('/getTeam/:id', (req, res) => {
-	console.log(req.params)
 	Team.findById(req.params.id, (err, data) => {
 		if (err)
 		  return res.json({success: false, eror: err})

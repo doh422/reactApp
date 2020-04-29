@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PlayerSelect from './playerSelect';
 
 class Boxscore extends Component {
 
     state = {
         roadRoster: null,
         homeRoster: null,
-
+        roadPlayers: [],
         intervalIsSet: 0
     }
 
@@ -22,8 +23,6 @@ class Boxscore extends Component {
         }
     }
 
-    
-
     render() {
         const { roadTeamId, roadTeamName, homeTeamId, homeTeamName, location, date, status } = this.props.location.state;
         const { roadRoster, homeRoster } = this.state
@@ -34,9 +33,6 @@ class Boxscore extends Component {
                 <p>{location + " - " + date}</p>
 
                 <b>{roadTeamName}</b>
-                <select>
-                    
-                </select>
                 <table>
                     <tbody>
                         <tr>
@@ -50,12 +46,8 @@ class Boxscore extends Component {
                         </tr>
                         <tr>
                             <td>
-                              {roadRoster != null ? 
-                                <select>
-                                  {roadRoster.roster.map((player) => (
-                                    <option key={player}>{player}</option>
-                                  ))}
-                                </select>
+                              {roadRoster != null ?
+                                <PlayerSelect roster={roadRoster.roster} />
                               :
                                 <input type="text" placeholder="Player" />
                               }
@@ -70,10 +62,7 @@ class Boxscore extends Component {
                     </tbody>
                 </table>
 
-                <b>{homeTeamName}</b>
-                <select>
-                    
-                </select>
+                <b>{homeTeamName}</b> 
                 <table>
                     <tbody>
                         <tr>
@@ -88,11 +77,7 @@ class Boxscore extends Component {
                         <tr>
                             <td>
                               {homeRoster != null ? 
-                                <select>
-                                  {homeRoster.roster.map((player) => (
-                                    <option key={player}>{player}</option>
-                                  ))}
-                                </select>
+                                <PlayerSelect roster={homeRoster.roster} />
                               :
                                 <input type="text" placeholder="Player" />
                               }
