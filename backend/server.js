@@ -9,6 +9,7 @@ const Data = require('./data');
 const Player = require('./player');
 const Game = require('./game');
 const Team = require('./team');
+const Hitline = require('./hitline')
 
 const API_PORT = 3001;
 const app = express();
@@ -218,6 +219,47 @@ router.post('/updateTeam', (req, res) => {
 			return res.json({success:false, error: err})
 		return res.json({success: true})
 	})
+})
+
+router.get('/getHitlineByPlayer/:id', (req, res) => {
+	Hitline.find({ player: req.params.id}, (err,data) => {
+		if (err)
+			return res.json({ success: false, error: err })
+		return res.json({ success: true, data: data })
+	})
+})
+
+router.get('/getHitline/:id', (req, res) => {
+	Hitline.findById(req.params.id, (err,data) => {
+		if (err)
+			return res.json({ success: false, error: err })
+		return res.json({ success: true, data: data })
+	})
+})
+
+router.post('/putHitline', (req, res) => {
+	let hitline = new Hitline()
+	const { player, date } = req.body
+	if (!player || player)
+		return res.json({
+			success: false,
+			error: 'no player assigned'
+		})
+	hitline.player = player
+	hitline.date = date
+	hitline.atbats = req.body.atbats
+	hitline.hits = req.body.hits
+	hitline.runs = req.body.runs
+	hitline.rbi = req.body.rbi
+	hitline.bb = req.body.bb
+	hitline.k = req.body.k
+	hitline.sb = req.body.sb
+	hitline.cs = req.body.cs
+	hitline.doubles = req.body.doubles
+	hitline.triples = req.body.triples
+	hitline.homers = req.body.homers
+	hitline.sac = req.body.sac
+	hitline.sf = req.body.sf
 })
 
 // append /api for http requests
