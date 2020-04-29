@@ -12,7 +12,7 @@ const DataSchema = new Schema (
 		roadTeamId: { type: Schema.Types.ObjectId, ref: 'Team' },
 		roadTeamName: String,
 		status: String,
-		stats: Object
+		stats: [{ type: Schema.Types.ObjectId, ref: 'Hitline' }]
 	}
 );
 
