@@ -240,13 +240,15 @@ router.get('/getHitline/:id', (req, res) => {
 router.post('/putHitline', (req, res) => {
 	let hitline = new Hitline()
 	const { player, date } = req.body
-	if (!player || player)
+	if (!player || player == null) {
 		return res.json({
 			success: false,
 			error: 'no player assigned'
 		})
+	}
 	hitline.player = player
 	hitline.date = date
+	hitline.game = req.body.game
 	hitline.atbats = req.body.atbats
 	hitline.hits = req.body.hits
 	hitline.runs = req.body.runs
@@ -260,6 +262,11 @@ router.post('/putHitline', (req, res) => {
 	hitline.homers = req.body.homers
 	hitline.sac = req.body.sac
 	hitline.sf = req.body.sf
+	hitline.save((err) => {
+		if (err)
+			return res.json({ success: false, error: err })
+		return res.json({ success: true })
+	})
 })
 
 // append /api for http requests

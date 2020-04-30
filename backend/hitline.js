@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
+const Player = require('./player').schema
+const Game = require('./game').schema
 
 const DataSchema = new Schema (
     {
-        data: Date,
+        date: Date,
         player: { type: Schema.Types.ObjectId, ref: 'Player' },
         game: { type: Schema.Types.ObjectId, ref: 'Game' },
         atbats: Number,
@@ -23,4 +24,4 @@ const DataSchema = new Schema (
     }
 )
 
-module.exports = mongoose.model("hitline", DataSchema)
+module.exports = mongoose.model("Hitline", DataSchema)
