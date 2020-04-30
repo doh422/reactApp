@@ -75,11 +75,13 @@ class Boxscore extends Component {
     render() {
         const { roadTeamId, roadTeamName, homeTeamId, homeTeamName, location, date, status } = this.props.location.state;
         const { roadRoster, homeRoster } = this.state
-        console.log(this.props)
+        console.log(this.state)
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+        const formattedDate = new Date(date)
         return (
             <div>
                 <h3>{roadTeamName + " @ " + homeTeamName}</h3>
-                <p>{location + " - " + date}</p>
+                <p>{location + " - " + formattedDate.toLocaleDateString("en-US", options)}</p>
 
                 <b>{roadTeamName}</b>
                 <table>
@@ -119,6 +121,7 @@ class Boxscore extends Component {
                 <table>
                     <tbody>
                         <tr>
+                            <th></th>
                             <th>Player</th>
                             <th>AB</th>
                             <th>R</th>
@@ -126,21 +129,24 @@ class Boxscore extends Component {
                             <th>RBI</th>
                             <th>BB</th>
                             <th>K</th>
+                            <th></th>
                         </tr>
                         <tr>
+                          <td data-battingorder="1">1</td>
                             <td>
                               {homeRoster != null ? 
-                                <PlayerSelect roster={homeRoster.roster} />
+                                <PlayerSelect roster={homeRoster.roster} action={this.setPlayer} />
                               :
                                 <input type="text" placeholder="Player" />
                               }
                             </td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
+                            <td><input type="number" name="atbats" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="runs" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="hits" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="rbi" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="bb" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="k" onChange={this.changeHandler} /></td>
+                            <td><button onClick={this.submitHandler}>ADD</button></td>
                         </tr>
                     </tbody>
                 </table>

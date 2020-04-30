@@ -55,6 +55,18 @@ class Player extends Component {
 							<th>SLG</th>
 						</tr>
 						))}
+						<tr>
+							<th>Total</th>
+							<th>AB</th>
+							<th>R</th>
+							<th>H</th>
+							<th>RBI</th>
+							<th>BB</th>
+							<th>K</th>
+							<th>AVG</th>
+							<th>OBP</th>
+							<th>SLG</th>
+						</tr>
 					</tbody>
 				</table>
 			  }
