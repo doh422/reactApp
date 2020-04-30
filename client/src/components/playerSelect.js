@@ -25,9 +25,9 @@ class PlayerSelect extends Component {
     render() {
         const { playerList } = this.state
         return (
-            <select>
+            <select onChange={this.props.action}>
               {playerList.map((player) => (
-                <option key={player._id}>{player.firstName + " " + player.lastName}</option>
+                <option key={player._id} value={player._id}>{player.firstName + " " + player.lastName}</option>
               ))}
             </select>
         )

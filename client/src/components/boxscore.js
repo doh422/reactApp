@@ -7,7 +7,22 @@ class Boxscore extends Component {
         roadRoster: null,
         homeRoster: null,
         roadPlayers: [],
-        intervalIsSet: 0
+        intervalIsSet: 0,
+
+        statsForPlayer: null,
+        atbats: 0,
+        hits: 0,
+        runs: 0,
+        rbi: 0,
+        bb: 0,
+        k: 0,
+        sb: 0,
+        doubles: 0,
+        triple: 0,
+        homers: 0,
+        cs: 0,
+        sac: 0,
+        sf: 0,
     }
 
     componentDidMount() {
@@ -23,6 +38,17 @@ class Boxscore extends Component {
         }
     }
 
+    changeHandler = (event) => {
+      let name = event.target.name
+      let val = event.target.value
+      this.setState({ [name]: val })
+    }
+
+    setPlayer = (event) => {
+      if (event.target.value != null)
+        this.setState({ statsForPlayer: event.target.value })
+    }
+
     render() {
         const { roadTeamId, roadTeamName, homeTeamId, homeTeamName, location, date, status } = this.props.location.state;
         const { roadRoster, homeRoster } = this.state
@@ -36,6 +62,7 @@ class Boxscore extends Component {
                 <table>
                     <tbody>
                         <tr>
+                            <th></th>
                             <th>Player</th>
                             <th>AB</th>
                             <th>R</th>
@@ -45,19 +72,20 @@ class Boxscore extends Component {
                             <th>K</th>
                         </tr>
                         <tr>
+                            <td data-battingorder="1">1</td>
                             <td>
                               {roadRoster != null ?
-                                <PlayerSelect roster={roadRoster.roster} />
+                                <PlayerSelect roster={roadRoster.roster} action={this.setPlayer} />
                               :
                                 <input type="text" placeholder="Player" />
                               }
                             </td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
-                            <td><input type="number" /></td>
+                            <td><input type="number" name="atbats" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="runs" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="hits" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="rbi" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="bb" onChange={this.changeHandler} /></td>
+                            <td><input type="number" name="k" onChange={this.changeHandler} /></td>
                         </tr>
                     </tbody>
                 </table>
