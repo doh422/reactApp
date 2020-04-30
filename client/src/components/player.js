@@ -50,8 +50,8 @@ class Player extends Component {
 							<th>{dat.rbi}</th>
 							<th>{dat.bb}</th>
 							<th>{dat.k}</th>
-							<th>AVG</th>
-							<th>OBP</th>
+							<th>{dat.hits/dat.atbats}</th>
+							<th>{(dat.hits + dat.bb)/dat.atbats}</th>
 							<th>SLG</th>
 						</tr>
 						))}
