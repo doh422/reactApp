@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlayerSelect from './playerSelect';
+import axios from 'axios';
 
 class Boxscore extends Component {
 
@@ -49,10 +50,32 @@ class Boxscore extends Component {
         this.setState({ statsForPlayer: event.target.value })
     }
 
+    submitHandler = (event) => {
+      event.preventDefault()
+      axios.post("http://localhost:3001/api/putHitline", {
+        player: this.state.statsForPlayer,
+        game: this.props.location.state._id,
+        date: this.props.location.state.date,
+        atbats: this.state.atbats,
+        hits: this.state.hits,
+        runs: this.state.runs,
+        rbi: this.state.rbi,
+        bb: this.state.bb,
+        k: this.state.k,
+        sb: this.state.sb,
+        doubles: this.state.doubles,
+        triples: this.state.triples,
+        homers: this.state.homers,
+        cs: this.state.cs,
+        sac: this.state.sac,
+        sf: this.state.sf
+      })
+    }
+
     render() {
         const { roadTeamId, roadTeamName, homeTeamId, homeTeamName, location, date, status } = this.props.location.state;
         const { roadRoster, homeRoster } = this.state
-        console.log(this.state)
+        console.log(this.props)
         return (
             <div>
                 <h3>{roadTeamName + " @ " + homeTeamName}</h3>
@@ -70,6 +93,7 @@ class Boxscore extends Component {
                             <th>RBI</th>
                             <th>BB</th>
                             <th>K</th>
+                            <th></th>
                         </tr>
                         <tr>
                             <td data-battingorder="1">1</td>
@@ -86,6 +110,7 @@ class Boxscore extends Component {
                             <td><input type="number" name="rbi" onChange={this.changeHandler} /></td>
                             <td><input type="number" name="bb" onChange={this.changeHandler} /></td>
                             <td><input type="number" name="k" onChange={this.changeHandler} /></td>
+                            <td><button onClick={this.submitHandler}>ADD</button></td>
                         </tr>
                     </tbody>
                 </table>
